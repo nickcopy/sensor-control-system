@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model co2 {
+  time Int
+  co2  Float
+  ho   String @db.VarChar(8)
+
+  @@id([time, ho])
+}
+
+model humidity {
+  time     Int
+  humidity Float
+  ho       String @db.VarChar(8)
+
+  @@id([time, ho])
+}
+
+model light {
+  time  Int
+  light Float
+  ho    String @db.VarChar(8)
+
+  @@id([time, ho])
+}
+
+model pir {
+  time Int
+  pir  Float
+  ho   String @db.VarChar(8)
+
+  @@id([time, ho])
+}
+
+model temperature {
+  time        Int
+  temperature Float
+  ho          String @db.VarChar(8)
+
+  @@id([time, ho])
+}
