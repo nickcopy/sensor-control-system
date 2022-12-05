@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, use } from "react";
 import {
   LineChart,
   Line,
@@ -28,18 +28,20 @@ interface chartDataSetType {
 export default function chart() {
   const [allDataSet, setAllDataSet] = useState<dataset>();
   const [ChartDataSet, setChartDataSet] = useState<chartDataSetType[]>([]);
+  const [interval, setinterval] = useState(Number);
+  let timerId = setInterval(() => setinterval(interval + 1), 2000);
+
   function unixTime(time: any) {
     let myDate = new Date(time * 1000);
     var date =
-      myDate.getMonth() +
-      1 +
-      "월" +
       myDate.getDate() +
       "일" +
       myDate.getHours() +
       "시" +
       myDate.getMinutes() +
-      "분";
+      "분" +
+      myDate.getSeconds() +
+      "초";
     return date;
   }
   function dataFirstSeting(props: dataset) {
@@ -71,6 +73,7 @@ export default function chart() {
         })
         .then((json) => {
           dataFirstSeting(json.dataset);
+          console.log("");
         });
     } catch (err) {
       console.log(err);
@@ -79,7 +82,7 @@ export default function chart() {
 
   useEffect(() => {
     getApiData();
-  }, []);
+  }, [interval]);
 
   return (
     <div>
